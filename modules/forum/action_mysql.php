@@ -188,7 +188,7 @@ $sql_create_module[] = "CREATE TABLE IF NOT EXISTS " . $db_config['prefix'] . "_
   content_type varbinary(25) NOT NULL,
   content_id int(10) unsigned NOT NULL,
   content_date int(10) unsigned NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8"mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
 $sql_create_module[] = "CREATE TABLE IF NOT EXISTS " . $db_config['prefix'] . "_" . $module_data . "_moderator (
   userid int(10) unsigned NOT NULL,
@@ -315,7 +315,7 @@ $sql_create_module[] = "CREATE TABLE IF NOT EXISTS " . $db_config['prefix'] . "_
   close_date int(10) unsigned NOT NULL DEFAULT '0',
   change_vote tinyint(3) unsigned NOT NULL DEFAULT '0',
   view_results_unvoted tinyint(3) unsigned NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8"mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
 $sql_create_module[] = "CREATE TABLE IF NOT EXISTS " . $db_config['prefix'] . "_" . $module_data . "_poll_response (
   poll_response_id int(10) unsigned NOT NULL,
@@ -323,14 +323,14 @@ $sql_create_module[] = "CREATE TABLE IF NOT EXISTS " . $db_config['prefix'] . "_
   response varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   response_vote_count int(10) unsigned NOT NULL DEFAULT '0',
   voters mediumblob NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8"mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
 $sql_create_module[] = "CREATE TABLE IF NOT EXISTS " . $db_config['prefix'] . "_" . $module_data . "_poll_vote (
   userid int(10) unsigned NOT NULL,
   poll_response_id int(10) unsigned NOT NULL,
   poll_id int(10) unsigned NOT NULL,
   vote_date int(10) unsigned NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8"mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
 $sql_create_module[] = "CREATE TABLE IF NOT EXISTS " . $db_config['prefix'] . "_" . $module_data . "_post (
   post_id int(10) unsigned NOT NULL,
@@ -436,7 +436,7 @@ $sql_create_module[] = "CREATE TABLE IF NOT EXISTS " . $db_config['prefix'] . "_
   target_url text COLLATE utf8mb4_unicode_ci NOT NULL,
   redirect_key varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   expiry_date int(10) unsigned NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8"mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
 $sql_create_module[] = "CREATE TABLE IF NOT EXISTS " . $db_config['prefix'] . "_" . $module_data . "_thread_reply_ban (
   thread_reply_ban_id int(10) unsigned NOT NULL,
@@ -464,3 +464,249 @@ $sql_create_module[] = "CREATE TABLE IF NOT EXISTS " . $db_config['prefix'] . "_
   email_subscribe tinyint(3) unsigned NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
+$sql_create_module[] = "ALTER TABLE nv4_forum_attachment
+  ADD PRIMARY KEY (attachment_id),
+  ADD UNIQUE KEY md5filename (md5filename),
+  ADD KEY content_type_id_date (content_type,content_id,attach_date),
+  ADD KEY temp_hash_attach_date (temp_hash,attach_date),
+  ADD KEY unassociated_attach_date (unassociated,attach_date)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_attachment_data
+  ADD PRIMARY KEY (data_id),
+  ADD KEY userid_upload_date (userid,upload_date),
+  ADD KEY attach_count (attach_count),
+  ADD KEY upload_date (upload_date)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_attachment_view
+  ADD KEY attachment_id (attachment_id)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_deletion_log
+  ADD PRIMARY KEY (content_type,content_id),
+  ADD KEY delete_user_id_date (delete_user_id,delete_date)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_draft
+  ADD PRIMARY KEY (draft_id),
+  ADD UNIQUE KEY draft_key_user (draft_key,userid),
+  ADD KEY last_update (last_update)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_edit_history
+  ADD PRIMARY KEY (edit_history_id),
+  ADD KEY content_type (content_type,content_id,edit_date),
+  ADD KEY edit_date (edit_date),
+  ADD KEY edit_user_id (edit_user_id)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_forum
+  ADD PRIMARY KEY (node_id)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_forum_prefix
+  ADD PRIMARY KEY (node_id,prefix_id),
+  ADD KEY prefix_id (prefix_id)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_forum_read
+  ADD PRIMARY KEY (forum_read_id),
+  ADD UNIQUE KEY user_id_node_id (userid,node_id),
+  ADD KEY node_id (node_id),
+  ADD KEY forum_read_date (forum_read_date)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_forum_watch
+  ADD PRIMARY KEY (userid,node_id),
+  ADD KEY node_id_notify_on (node_id,notify_on)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_ip
+  ADD PRIMARY KEY (ip_id),
+  ADD KEY user_id_log_date (userid,log_date),
+  ADD KEY ip_log_date (ip,log_date),
+  ADD KEY content_type_content_id (content_type,content_id),
+  ADD KEY log_date (log_date)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_liked_content
+  ADD PRIMARY KEY (like_id),
+  ADD UNIQUE KEY content_type_id_like_user_id (content_type,content_id,like_user_id),
+  ADD KEY like_user_content_type_id (like_user_id,content_type,content_id),
+  ADD KEY content_user_id_like_date (content_user_id,like_date),
+  ADD KEY like_date (like_date)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_link_forum
+  ADD PRIMARY KEY (node_id)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_moderation_queue
+  ADD PRIMARY KEY (content_type,content_id),
+  ADD KEY content_date (content_date)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_moderator
+  ADD PRIMARY KEY (userid)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_moderator_content
+  ADD PRIMARY KEY (moderator_id),
+  ADD UNIQUE KEY content_user_id (content_type,content_id,userid),
+  ADD KEY user_id (userid)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_moderator_log
+  ADD PRIMARY KEY (moderator_log_id),
+  ADD KEY log_date (log_date),
+  ADD KEY content_type_id (content_type,content_id),
+  ADD KEY discussion_content_type_id (discussion_content_type,discussion_content_id),
+  ADD KEY user_id_log_date (userid,log_date)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_node
+  ADD PRIMARY KEY (node_id),
+  ADD UNIQUE KEY alias (alias),
+  ADD KEY parent_id (parent_id)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_permission
+  ADD PRIMARY KEY (permission_id,permission_group_id),
+  ADD KEY display_order (display_order)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_permission_cache_content
+  ADD PRIMARY KEY (permission_combination_id,content_type,content_id)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_permission_combination
+  ADD PRIMARY KEY (permission_combination_id),
+  ADD KEY user_id (userid)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_permission_combination_user_group
+  ADD PRIMARY KEY (user_group_id,permission_combination_id),
+  ADD KEY permission_combination_id (permission_combination_id)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_permission_entry
+  ADD PRIMARY KEY (permission_entry_id),
+  ADD UNIQUE KEY unique_permission (user_group_id,userid,permission_group_id,permission_id)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_permission_entry_content
+  ADD PRIMARY KEY (permission_entry_id),
+  ADD UNIQUE KEY user_group_id_unique (user_group_id,userid,content_type,content_id,permission_group_id,permission_id),
+  ADD KEY content_type_content_id (content_type,content_id)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_permission_group
+  ADD PRIMARY KEY (permission_group_id)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_permission_interface_group
+  ADD PRIMARY KEY (interface_group_id),
+  ADD KEY display_order (display_order)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_poll
+  ADD PRIMARY KEY (poll_id),
+  ADD UNIQUE KEY content_type_content_id (content_type,content_id)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_poll_response
+  ADD PRIMARY KEY (poll_response_id),
+  ADD KEY poll_id_response_id (poll_id,poll_response_id)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_poll_vote
+  ADD PRIMARY KEY (poll_response_id,userid),
+  ADD KEY poll_id_user_id (poll_id,userid),
+  ADD KEY userid (userid)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_post
+  ADD PRIMARY KEY (post_id),
+  ADD KEY thread_id_post_date (thread_id,post_date),
+  ADD KEY thread_id_position (thread_id,position),
+  ADD KEY user_id (userid)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_post_history
+  ADD PRIMARY KEY (edit_history_id),
+  ADD KEY content_type (content_type,content_id,edit_date),
+  ADD KEY edit_date (edit_date)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_session_activity
+  ADD PRIMARY KEY (userid,unique_key) USING BTREE,
+  ADD KEY view_date (view_date) USING BTREE";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_tag
+  ADD PRIMARY KEY (tag_id),
+  ADD UNIQUE KEY tag (tag),
+  ADD UNIQUE KEY tag_url (tag_url),
+  ADD KEY use_count (use_count)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_tag_content
+  ADD PRIMARY KEY (tag_content_id),
+  ADD UNIQUE KEY content_type_id_tag (content_type,content_id,tag_id),
+  ADD KEY tag_id_content_date (tag_id,content_date)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_tag_result_cache
+  ADD PRIMARY KEY (result_cache_id),
+  ADD UNIQUE KEY tag_id_user_id (tag_id,user_id),
+  ADD KEY expiration_date (expiry_date)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_thread
+  ADD PRIMARY KEY (thread_id),
+  ADD KEY node_id_last_post_date (node_id,last_post_date),
+  ADD KEY node_id_sticky_state_last_post (node_id,sticky,discussion_state,last_post_date),
+  ADD KEY last_post_date (last_post_date),
+  ADD KEY post_date (post_date),
+  ADD KEY userid (userid)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_thread_read
+  ADD PRIMARY KEY (thread_read_id),
+  ADD UNIQUE KEY user_id_thread_id (userid,thread_id),
+  ADD KEY thread_id (thread_id),
+  ADD KEY thread_read_date (thread_read_date)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_thread_redirect
+  ADD PRIMARY KEY (thread_id),
+  ADD KEY redirect_key_expiry_date (redirect_key,expiry_date)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_thread_reply_ban
+  ADD PRIMARY KEY (thread_reply_ban_id),
+  ADD UNIQUE KEY thread_id (thread_id,userid),
+  ADD KEY expiry_date (expiry_date),
+  ADD KEY userid (userid)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_thread_user_post
+  ADD PRIMARY KEY (thread_id,userid),
+  ADD KEY user_id (userid)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_thread_view
+  ADD KEY thread_id (thread_id)";
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_thread_watch
+  ADD PRIMARY KEY (userid,thread_id),
+  ADD KEY thread_id_email_subscribe (thread_id,email_subscribe)";
+
+
+$sql_create_module[] = "ALTER TABLE nv4_forum_attachment
+  MODIFY attachment_id int(10) unsigned NOT NULL AUTO_INCREMENT";
+$sql_create_module[] = "ALTER TABLE nv4_forum_attachment_data
+  MODIFY data_id int(10) unsigned NOT NULL AUTO_INCREMENT";
+$sql_create_module[] = "ALTER TABLE nv4_forum_draft
+  MODIFY draft_id int(10) unsigned NOT NULL AUTO_INCREMENT";
+$sql_create_module[] = "ALTER TABLE nv4_forum_edit_history
+  MODIFY edit_history_id int(10) unsigned NOT NULL AUTO_INCREMENT";
+$sql_create_module[] = "ALTER TABLE nv4_forum_forum_read
+  MODIFY forum_read_id int(10) unsigned NOT NULL AUTO_INCREMENT";
+$sql_create_module[] = "ALTER TABLE nv4_forum_ip
+  MODIFY ip_id int(10) unsigned NOT NULL AUTO_INCREMENT";
+$sql_create_module[] = "ALTER TABLE nv4_forum_liked_content
+  MODIFY like_id int(10) unsigned NOT NULL AUTO_INCREMENT";
+$sql_create_module[] = "ALTER TABLE nv4_forum_moderator_content
+  MODIFY moderator_id int(10) unsigned NOT NULL AUTO_INCREMENT";
+$sql_create_module[] = "ALTER TABLE nv4_forum_moderator_log
+  MODIFY moderator_log_id int(10) unsigned NOT NULL AUTO_INCREMENT";
+$sql_create_module[] = "ALTER TABLE nv4_forum_node
+  MODIFY node_id mediumint(8) unsigned NOT NULL AUTO_INCREMENT";
+$sql_create_module[] = "ALTER TABLE nv4_forum_permission_combination
+  MODIFY permission_combination_id int(10) unsigned NOT NULL AUTO_INCREMENT";
+$sql_create_module[] = "ALTER TABLE nv4_forum_permission_entry
+  MODIFY permission_entry_id int(10) unsigned NOT NULL AUTO_INCREMENT";
+$sql_create_module[] = "ALTER TABLE nv4_forum_permission_entry_content
+  MODIFY permission_entry_id int(10) unsigned NOT NULL AUTO_INCREMENT";
+$sql_create_module[] = "ALTER TABLE nv4_forum_poll
+  MODIFY poll_id int(10) unsigned NOT NULL AUTO_INCREMENT";
+$sql_create_module[] = "ALTER TABLE nv4_forum_poll_response
+  MODIFY poll_response_id int(10) unsigned NOT NULL AUTO_INCREMENT";
+$sql_create_module[] = "ALTER TABLE nv4_forum_post
+  MODIFY post_id int(10) unsigned NOT NULL AUTO_INCREMENT";
+$sql_create_module[] = "ALTER TABLE nv4_forum_post_history
+  MODIFY edit_history_id int(10) unsigned NOT NULL AUTO_INCREMENT";
+$sql_create_module[] = "ALTER TABLE nv4_forum_tag
+  MODIFY tag_id int(10) unsigned NOT NULL AUTO_INCREMENT";
+$sql_create_module[] = "ALTER TABLE nv4_forum_tag_content
+  MODIFY tag_content_id int(10) unsigned NOT NULL AUTO_INCREMENT";
+$sql_create_module[] = "ALTER TABLE nv4_forum_tag_result_cache
+  MODIFY result_cache_id int(11) NOT NULL AUTO_INCREMENT";
+$sql_create_module[] = "ALTER TABLE nv4_forum_thread
+  MODIFY thread_id int(10) unsigned NOT NULL AUTO_INCREMENT";
+$sql_create_module[] = "ALTER TABLE nv4_forum_thread_read
+  MODIFY thread_read_id int(10) unsigned NOT NULL AUTO_INCREMENT";
+$sql_create_module[] = "ALTER TABLE nv4_forum_thread_reply_ban
+  MODIFY thread_reply_ban_id int(10) unsigned NOT NULL AUTO_INCREMENT";
