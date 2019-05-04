@@ -1,0 +1,229 @@
+/*
+UploadiFive
+Copyright (c) 2012 Reactive Apps, Ronnie Garcia
+*/
+
+.uploadifive-button {
+	cursor:pointer;
+	/* display:none */
+}
+.uploadifive-button:hover {
+	 
+}
+.uploadifive-button input[type="file"]{cursor:pointer}
+.uploadifive-queue-item {
+	background-color: #F5F5F5;
+	border-bottom: 1px dotted #D5D5D5;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	font: 12px Arial, Helvetica, Sans-serif;
+	margin-top: 3px;
+	padding: 10px;
+}
+.uploadifive-queue-item .close {
+	background: url('uploadifive-cancel.png') 0 3px no-repeat;
+	display: block;
+	float: right;
+	height: 16px;
+	text-indent: -9999px;
+	width: 16px;
+} 
+.uploadifive-queue-item .progress {
+	border: 1px solid #D0D0D0;
+	height: 3px;
+	margin-top: 5px;
+	width: 100%;
+}
+.uploadifive-queue-item .progress-bar {
+	background-color: #0072BC;
+	height: 3px;
+	width: 0;
+}
+
+/* 
+   uploadifive
+------------------------------------------------------------------- */
+
+.uploadifive_wrapper * {
+	box-sizing: content-box;
+}
+
+.uploadifive_button {
+	display: -moz-inline-box; /* FF < 3*/
+	display: inline-block;
+	font: normal 12px sans-serif;
+	text-decoration: none;
+    color: #42454a;
+    border: 1px solid #bababa;
+    padding: 2px 8px 3px 20px;
+	margin-right: 4px;
+    background: #f3f3f3 url('buttons.png') no-repeat 0 center;
+	outline: 0;
+
+    /* Optional rounded corners for browsers that support it */
+    -moz-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.uploadifive_button:hover {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.uploadifive_disabled, a.uploadifive_disabled:hover {
+    color: #737373;
+    border-color: #c5c5c5;
+    background: #ededed url('buttons-disabled.png') no-repeat 0 center;
+	cursor: default;
+}
+
+.uploadifive_add {
+	background-position: -181px center;
+}
+
+.uploadifive_wrapper {
+	font: normal 11px Verdana,sans-serif;
+	width: 100%;
+}
+
+.uploadifive_container {
+	padding: 8px;
+	background: url('transp50.png');
+	/*-moz-border-radius: 5px;*/
+}
+
+.uploadifive_container input {
+	border: 1px solid #DDD;
+	font: normal 11px Verdana,sans-serif;
+	width: 98%;
+}
+
+.uploadifive_header {background: #2A2C2E url('backgrounds.gif') repeat-x;}
+.uploadifive_header_content {
+	background: url('backgrounds.gif') no-repeat 0 -317px;
+	min-height: 56px;
+	padding-left: 60px;
+	color: #FFF;
+}
+.uploadifive_header_title {
+	font: normal 18px sans-serif;
+	padding: 6px 0 3px;
+}
+.uploadifive_header_text {
+	font: normal 12px sans-serif;
+}
+
+.uploadifive_filelist {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.uploadifive_scroll .uploadifive_filelist {
+	height: 185px;
+	background: #F5F5F5;
+	overflow-y: scroll;
+}
+
+.uploadifive_filelist li {
+	padding: 10px 8px;
+	background: #F5F5F5 url('backgrounds.gif') repeat-x 0 -156px;
+	border-bottom: 1px solid #DDD;
+}
+
+.uploadifive_filelist_header, .uploadifive_filelist_footer {
+	background: #DFDFDF;
+	padding: 8px 8px;
+	color: #42454A;
+}
+.uploadifive_filelist_header {	
+	border-top: 1px solid #EEE;
+	border-bottom: 1px solid #CDCDCD;
+}
+
+.uploadifive_filelist_footer {border-top: 1px solid #FFF; min-height: 22px; line-height: 20px; vertical-align: middle;}
+.uploadifive_file_name {float: left; overflow: hidden}
+.uploadifive_file_status {color: #777;}
+.uploadifive_file_status span {color: #42454A;}
+.uploadifive_file_size, .uploadifive_file_status, .uploadifive_progress {
+	float: right;
+	width: 80px;
+}
+.uploadifive_file_size, .uploadifive_file_status, .uploadifive_file_action {text-align: right;}
+
+.uploadifive_filelist .uploadifive_file_name {
+	width: 205px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.uploadifive_file_action {
+	float: right;
+	width: 16px;
+	height: 16px;
+	margin-left: 15px;
+}
+
+.uploadifive_file_action * {
+	display: none;
+	width: 16px;
+	height: 16px;
+}
+
+li.uploadifive_uploading {background: #ECF3DC url('backgrounds.gif') repeat-x 0 -238px;}
+li.uploadifive_done {color:#AAA}
+
+li.uploadifive_delete a.uploadifive-close{
+	background: url('delete.gif');
+}
+
+li.uploadifive_failed a {
+	background: url('error.gif');
+	cursor: default;
+}
+
+li.uploadifive_done a {
+	background: url('done.gif');
+	cursor: default;
+}
+
+.uploadifive_progress, .uploadifive_upload_status {
+	display: none;
+}
+
+.uploadifive_progress_container {
+	margin-top: 3px;
+	border: 1px solid #CCC;
+	background: #FFF;
+	padding: 1px;
+}
+.uploadifive_progress_bar {
+	width: 0px;
+	height: 7px;
+	background: #CDEB8B;
+}
+
+.uploadifive_scroll .uploadifive_filelist_header .uploadifive_file_action, .uploadifive_scroll .uploadifive_filelist_footer .uploadifive_file_action {
+	margin-right: 17px;
+}
+
+/* Floats */
+
+.uploadifive_clear,.uploadifive_clearer {clear: both;}
+.uploadifive_clearer, .uploadifive_progress_bar {
+	display: block;
+	font-size: 0;
+	line-height: 0;	
+}
+
+li.uploadifive_droptext {
+	background: #F5F3F3;
+	text-align: center;
+	vertical-align: middle;
+	border: 0;
+	line-height: 165px;
+}
